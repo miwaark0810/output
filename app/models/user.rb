@@ -10,6 +10,8 @@ class User < ApplicationRecord
   }
   validates :grade_id, numericality: { other_than: 1, message: 'Select' }
   
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :grade
 end
 
 
