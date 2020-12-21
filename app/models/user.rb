@@ -9,6 +9,8 @@ class User < ApplicationRecord
     with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'Include both letters and numbers'
   }
   validates :grade_id, numericality: { other_than: 1, message: 'Select' }
+
+  has_many :posts
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :grade
