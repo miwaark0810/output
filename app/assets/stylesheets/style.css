@@ -101,7 +101,6 @@ a {
   appearance: textfield;
   background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
   -webkit-rtl-ordering: logical;
-  margin-bottom: 1em;
   font: 400 13.3333px Arial;
   padding: 1px 2px;
   border: 1px;

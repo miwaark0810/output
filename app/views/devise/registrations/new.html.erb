@@ -30,7 +30,7 @@
           <%= f.label :grade, "学年" %><br />
           <%= f.collection_select(:grade_id, Grade.all, :id, :name, {}) %>
         </div>
-
+        <br>
         <div class="actions">
           <%= f.submit "新規登録", class: :form__btn  %>
         </div>
