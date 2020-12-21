@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card__body">
+    <%= link_to post.title, root_path, class: :card__title%>
+    <p class="card__summary">
+      <%= post.text %>
+    </p>
+    <%= link_to "by #{post.user.nickname}", root_path, class: :card__user%>
+  </div>
+</div>
+
