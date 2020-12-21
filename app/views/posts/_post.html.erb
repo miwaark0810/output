@@ -1,5 +1,6 @@
 <div class="card">
   <div class="card__body">
+    <%= image_tag post.image, class: "card__img" %>
     <%= link_to post.title, root_path, class: :card__title%>
     <p class="card__summary">
       <%= post.text %>

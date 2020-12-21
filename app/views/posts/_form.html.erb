@@ -1,6 +1,11 @@
 <%= form_with(model: post, local: true) do |f|%>
   <%= render 'shared/error_messages', model: f.object %>
   <div class="field">
+    <%= f.label :image, "画像" %><br />
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
     <%= f.label :subject, "教科" %><br />
     <%= f.text_field :subject %>
   </div>
