@@ -6,7 +6,11 @@
       </div>
     <% end %>
     <div class="card__wrapper">
-      <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
+      <%= render partial: 'post', collection: @posts %>
     </div>
   </div>
+  <%= link_to(new_post_path, class: 'output-btn') do %>
+    <span class='output-btn-text'>アウトプット</span>
+    <%= image_tag 'pen_icon.png' , size: '185x60' ,class: "output-btn-icon" %>
+  <% end %>
 </main>
