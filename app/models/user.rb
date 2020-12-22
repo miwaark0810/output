@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :grade_id, numericality: { other_than: 1, message: 'Select' }
 
   has_many :posts
+  has_many :comments, dependent: :destroy
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :grade
