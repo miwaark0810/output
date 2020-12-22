@@ -5,7 +5,7 @@
     <p class="card__summary">
       <%= post.text %>
     </p>
-    <%= link_to "by #{post.user.nickname}", root_path, class: :card__user%>
+    <%= link_to "by #{post.user.nickname}", user_path(post.user.id), class: :card__user, method: :get %>
   </div>
 </div>
 

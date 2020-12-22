@@ -1,0 +1,27 @@
+<div class="main">
+  <div class="inner">
+    <div class="user__wrapper">
+      <h2 class="page-heading">
+        <%= "#{@user.nickname}さんの情報"%>
+      </h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="table__col1">ニックネーム</th>
+            <td class="table__col2"><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <th class="table__col1">学年</th>
+            <td class="table__col2"><%= @user.grade.name %></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 class="page-heading">
+        <%= "#{@user.nickname}さんの投稿"%>
+      </h2>
+      <div class="user__card">
+        <%= render partial: 'posts/post', collection: @posts %>
+      </div>
+    </div>
+  </div>
+</div>
