@@ -138,7 +138,7 @@ a {
   color: white;
   text-decoration: none;
   user-select: none;
-  background: #A2153B;;
+  background: #A2153B;
   border: 1px #A2153B; solid;
   border-radius: 3px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
@@ -214,6 +214,34 @@ a {
 
 .output-btn-icon {
   width: 60%;
+}
+
+.search-form {
+  text-align: center;
+  padding-top: 32px;
+}
+
+.search-form .search-input {
+  width: 30%;
+  margin-right: 10px;
+}
+
+.search-form .search-btn {
+  width: 10%;
+  padding: 0.4em 1.6em;
+  font-size: 0.8em;
+  color: white;
+  text-decoration: none;
+  user-select: none;
+  border: 1px #A2153B solid;
+  border-radius: 3px;
+  transition: 0.4s ease;
+  background: #A2153B;
+}
+
+.search-form .search-btn:hover{
+  color: white;
+  background: #3D3D3D;
 }
 
 /* 詳細ページ */

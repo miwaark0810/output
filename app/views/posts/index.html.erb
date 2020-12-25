@@ -5,6 +5,10 @@
         <%= link_to "ようこそ、#{current_user.nickname}さん", user_path(current_user.id), class: :greeting__link, method: :get%>
       </div>
     <% end %>
+    <%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
+      <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
+      <%= form.submit "検索", class: "search-btn" %>
+    <% end %>
     <div class="card__wrapper">
       <%= render partial: 'post', collection: @posts %>
     </div>
