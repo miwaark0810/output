@@ -1,1 +1,11 @@
-<h1>トップページ</h1>
+<main class="main">
+  <div class="inner">
+    <div class="card__wrapper">
+      <%= render partial: 'question', collection: @questions %>
+    </div>
+  </div>
+  <%= link_to(new_question_path, class: 'output-btn') do %>
+    <span class='output-btn-text'>質問する</span>
+    <%= image_tag 'pen_icon.png' , size: '185x60' ,class: "output-btn-icon" %>
+  <% end %>
+</main>
