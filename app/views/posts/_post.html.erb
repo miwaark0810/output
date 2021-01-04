@@ -5,7 +5,15 @@
     <p class="card__summary">
       <%= post.text %>
     </p>
-    <%= link_to "by #{post.user.nickname}", user_path(post.user.id), class: :card__user, method: :get %>
+    <%= link_to "by #{post.user.nickname}", user_path(post), class: :card__user, method: :get %>
+    <% if user_signed_in? %>
+      <% if current_user.already_favorited?(post) %>
+        <%= link_to 'いいねを外す', post_favorites_path(post), method: :delete %>
+      <% else %>
+        <%= link_to 'いいね', post_favorites_path(post), method: :post %>    
+      <% end %>
+      <%= post.favorites.count%>
+    <% end %>
   </div>
 </div>
 
