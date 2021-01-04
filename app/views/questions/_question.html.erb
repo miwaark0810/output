@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card__body">
+    <%= link_to question.title, question_path(question.id), class: :card__title, method: :get%>
+    <p class="card__summary">
+      <%= question.text %>
+    </p>
+    <%= link_to "by #{question.user.nickname}", user_path(question), class: :card__user, method: :get %>
+  </div>
+</div>
+
