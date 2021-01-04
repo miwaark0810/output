@@ -244,6 +244,10 @@ a {
   background: #3D3D3D;
 }
 
+.fa-heart {
+  color: #A2153B;
+}
+
 /* 詳細ページ */
 .prototype__wrapper{
   min-height: calc(100vh - 161px);
