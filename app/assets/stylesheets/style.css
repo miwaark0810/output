@@ -139,7 +139,7 @@ a {
   text-decoration: none;
   user-select: none;
   background: #A2153B;
-  border: 1px #A2153B; solid;
+  border: 1px #A2153B solid;
   border-radius: 3px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
   transition: 0.2s ease;
@@ -244,6 +244,10 @@ a {
   background: #3D3D3D;
 }
 
+.fa-heart {
+  color: #A2153B;
+}
+
 /* 詳細ページ */
 .prototype__wrapper{
   min-height: calc(100vh - 161px);
@@ -301,6 +305,10 @@ a {
   background-color: #f6f6f6;
   padding: 20px;
   margin: 28px 0 40px 0;
+}
+
+.prototype__heart{
+  text-align: center;
 }
 
 .comments_lists{

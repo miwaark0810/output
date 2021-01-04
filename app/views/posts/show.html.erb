@@ -23,17 +23,31 @@
             <%= @post.text %>
           </p>
       </div>
+      <div class="prototype__heart">
+        <% if user_signed_in? %>
+          <% if current_user.already_favorited?(@post) %>
+            <%= link_to post_favorites_path(@post), method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+          <% else %>
+            <%= link_to post_favorites_path(@post), method: :post do %>  
+              <i class="far fa-heart"></i>
+            <% end %>
+          <% end %>
+          <%= @post.favorites.count%>
+        <% end %>
+      </div>
       <div class="prototype__comments">
           <% if user_signed_in? %>
-           <%= form_with(model: [@post, @comment], local: true) do |f| %>
-            <div class="field">
-              <%= f.label :text, "コメント" %><br />
-              <%= f.text_field :text %>
-            </div>
-            <div class="actions">
-              <%= f.submit "送信する", class: :form__btn %>
-            </div>
-           <% end %> 
+            <%= form_with(model: [@post, @comment], local: true) do |f| %>
+              <div class="field">
+                <%= f.label :text, "コメント" %><br />
+                <%= f.text_field :text %>
+              </div>
+              <div class="actions">
+                <%= f.submit "送信する", class: :form__btn %>
+              </div>
+            <% end %> 
           <% end %>
         <ul class="comments_lists">
           <% if @comments %>
