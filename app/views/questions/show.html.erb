@@ -1,0 +1,26 @@
+<main class="main">
+  <div class="inner">
+    <div class="prototype__wrapper">
+      <p class="prototype__hedding">
+        <%= @question.title%>
+      </p>
+      <br>
+      <div class="prototype__body">
+        <div class="prototype__detail">
+          <p class="detail__message">
+            <%= @question.text %>
+          </p>
+      </div>
+      <br>
+      <%= link_to "by #{@question.user.nickname}", user_path(@question.user.id), class: :prototype__user, method: :get %>
+
+      <% if user_signed_in? && current_user.id == @question.user_id %>
+        <div class="prototype__manage">
+          <%= link_to "編集する", edit_question_path(@question.id), class: :prototype__btn, method: :get%>
+          <%= link_to "削除する", question_path(@question.id), class: :prototype__btn, method: :delete %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</main>
