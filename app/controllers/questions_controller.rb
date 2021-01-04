@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :set_question, only: [:show]
+
   def index
     @questions = Question.includes(:user)
   end
@@ -16,9 +18,16 @@ class QuestionsController < ApplicationController
      end
   end
 
+  def show 
+  end
+
   private
   
   def question_params
     params.require(:question).permit(:subject, :title, :text).merge(user_id: current_user.id)
+  end
+
+  def set_question
+    @question = Question.find(params[:id])
   end
 end
