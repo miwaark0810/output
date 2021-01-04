@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   def index
     @questions = Question.includes(:user)
@@ -33,6 +34,11 @@ class QuestionsController < ApplicationController
      else
       render :edit
      end
+  end
+
+  def destroy
+    @question.destroy
+    redirect_to questions_path
   end
 
   private
