@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :posts
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :grade
