@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
   resources :users, only: :show
-  resources :questions
+  resources :questions do
+    resources :answers, only: :create
+  end
 end
+
