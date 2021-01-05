@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   def create
-    @answer = answer.new(answer_params)
+    @answer = Answer.new(answer_params)
     if @answer.save
       redirect_to question_path(@answer.question_id)
     else
