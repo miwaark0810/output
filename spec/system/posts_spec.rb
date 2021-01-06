@@ -31,9 +31,9 @@ RSpec.describe '新規投稿', type: :system do
       }.to change { Post.count }.by(1)
       # トップページに遷移する
       visit root_path
-      # トップページには先ほど投稿した内容のツイートが存在することを確認する（画像）
+      # トップページには先ほど投稿した内容の投稿が存在することを確認する（画像）
       expect(page).to have_selector("img")
-      # トップページには先ほど投稿した内容のツイートが存在することを確認する（テキスト）
+      # トップページには先ほど投稿した内容の投稿が存在することを確認する（テキスト）
       expect(page).to have_content(@post_title)
       expect(page).to have_content(@post_text)
     end
@@ -45,6 +45,78 @@ RSpec.describe '新規投稿', type: :system do
       # 新規投稿ページへ遷移しようとするとログインページへ遷移する
       visit new_post_path
       expect(current_path).to eq new_user_session_path
+    end
+  end
+end
+
+RSpec.describe '投稿編集', type: :system do
+  before do
+    @post1 = FactoryBot.create(:post)
+    @post2 = FactoryBot.create(:post)
+  end
+  context '投稿編集ができるとき' do
+    it 'ログインしたユーザーは自分が投稿した投稿の編集ができる' do
+      # 投稿1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @post1.user.email
+      fill_in 'パスワード（6文字以上）', with: @post1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 投稿1の詳細ページに移動する
+      visit post_path(@post1.id)
+      # 投稿1に「編集」ボタンがあることを確認する
+      expect(page).to have_link '編集', href: edit_post_path(@post1)
+      # 編集ページへ遷移する
+      visit edit_post_path(@post1)
+      # すでに投稿済みの内容がフォームに入っていることを確認する
+      expect(
+        find('#post_subject').value
+      ).to eq @post1.subject
+      expect(
+        find('#post_title').value
+      ).to eq @post1.title
+      expect(
+        find('#post_text').value
+      ).to eq @post1.text
+      # 投稿内容を編集する
+      fill_in '教科', with: "#{@post1.subject}+編集した教科"
+      fill_in 'タイトル', with: "#{@post1.title}+編集したタイトル"
+      fill_in 'テキスト', with: "#{@post1.text}+編集したテキスト"
+      # 編集してもpostモデルのカウントは変わらないことを確認する
+      expect{
+        find('input[name="commit"]').click
+      }.to change { Post.count }.by(0)
+      # 詳細画面に遷移したことを確認する
+      expect(current_path).to eq post_path(@post1.id)
+      # トップページに遷移する
+      visit root_path
+      # トップページには先ほど変更した内容の投稿が存在することを確認する
+      expect(page).to have_content("#{@post1.title}+編集したタイトル")
+      expect(page).to have_content("#{@post1.text}+編集したテキスト")
+    end
+  end
+  context '投稿編集ができないとき' do
+    it 'ログインしたユーザーは自分以外が投稿した投稿の編集画面には遷移できない' do
+      # 投稿1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @post1.user.email
+      fill_in 'パスワード（6文字以上）', with: @post1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 投稿2の詳細ページに移動する
+      visit post_path(@post2.id)
+      # 投稿2に「編集」ボタンがないことを確認する
+      expect(page).to have_no_link '編集', href: edit_post_path(@post2)
+    end
+    it 'ログインしていないと投稿の編集画面には遷移できない' do
+      # トップページにいる
+      visit root_path
+      # 投稿1に「編集」ボタンがないことを確認する
+      visit post_path(@post1.id)
+      expect(page).to have_no_link '編集', href: edit_post_path(@post1)
+      # 投稿2に「編集」ボタンがないことを確認する
+      visit post_path(@post2.id)
+      expect(page).to have_no_link '編集', href: edit_post_path(@post2)
     end
   end
 end
