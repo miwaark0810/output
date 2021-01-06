@@ -8,7 +8,7 @@
         <%= render 'shared/error_messages', model: f.object %>
         
         <div class="field">
-          <%= f.label :nicknama, "ニックネーム" %><br />
+          <%= f.label :nickname, "ニックネーム" %><br />
           <%= f.text_field :nickname %>
         </div>
 
@@ -27,9 +27,8 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
         </div>
 
-
         <div class="field">
-          <%= f.label :grade, "学年" %><br />
+          <%= f.label :grade_id, "学年" %><br />
           <%= f.collection_select(:grade_id, Grade.all, :id, :name, {}) %>
         </div>
         <br>
