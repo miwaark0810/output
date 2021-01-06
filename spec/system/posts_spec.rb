@@ -174,3 +174,38 @@ RSpec.describe '投稿削除', type: :system do
     end
   end
 end
+
+require 'rails_helper'
+
+# 投稿投稿、編集、削除の結合テストコードは省略しています
+# 投稿削除の結合テストコードに続いて記述しましょう
+
+RSpec.describe '投稿詳細', type: :system do
+  before do
+    @post = FactoryBot.create(:post)
+  end
+  it 'ログインしたユーザーは投稿詳細ページに遷移してコメント投稿欄が表示される' do
+    # ログインする
+    visit new_user_session_path
+    fill_in 'メールアドレス', with: @post.user.email
+    fill_in 'パスワード', with: @post.user.password
+    find('input[name="commit"]').click
+    expect(current_path).to eq root_path
+    # 詳細ページに遷移する
+    visit post_path(@post)
+    # 詳細ページに投稿の内容が含まれている
+    expect(page).to have_content("#{@post.title}")
+    expect(page).to have_content("#{@post.text}")
+    # コメント用のフォームが存在する
+    expect(page).to have_selector 'form'
+  end
+  it 'ログインしていない状態で投稿詳細ページに遷移できるもののコメント投稿欄が表示されない' do
+    # 詳細ページに遷移する
+    visit post_path(@post)
+    # 詳細ページに投稿の内容が含まれている
+    expect(page).to have_content("#{@post.title}")
+    expect(page).to have_content("#{@post.text}")
+    # フォームが存在しないことを確認する
+    expect(page).to have_no_selector 'form'
+  end
+end
