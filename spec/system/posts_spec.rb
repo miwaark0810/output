@@ -120,3 +120,57 @@ RSpec.describe '投稿編集', type: :system do
     end
   end
 end
+
+RSpec.describe '投稿削除', type: :system do
+  before do
+    @post1 = FactoryBot.create(:post)
+    @post2 = FactoryBot.create(:post)
+  end
+  context '投稿削除ができるとき' do
+    it 'ログインしたユーザーは自らの投稿を削除ができる' do
+      # 投稿1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @post1.user.email
+      fill_in 'パスワード（6文字以上）', with: @post1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 投稿1の詳細ページに移動する
+      visit post_path(@post1.id)
+      # 投稿1に「削除」ボタンがあることを確認する
+      expect(page).to have_link '削除', href: post_path(@post1)
+      # 投稿を削除するとレコードの数が1減ることを確認する
+      expect{
+        find_link('削除', href: post_path(@post1)).click
+      }.to change { Post.count }.by(-1)
+      # トップページに遷移することを確認する
+      expect(current_path).to eq root_path
+      # トップページには投稿1の内容が存在しないことを確認する
+      expect(page).to have_no_content("#{@post1.title}")
+      expect(page).to have_no_content("#{@post1.text}")
+    end
+  end
+  context '投稿削除ができないとき' do
+    it 'ログインしたユーザーは自分以外が投稿した投稿の削除ができない' do
+      # 投稿1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @post1.user.email
+      fill_in 'パスワード（6文字以上）', with: @post1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 投稿2の詳細ページに移動する
+      visit post_path(@post2.id)
+      # 投稿2に「削除」ボタンがないことを確認する
+      expect(page).to have_no_link '削除', href: post_path(@post2)
+    end
+    it 'ログインしていないと投稿の削除ボタンがない' do
+      # トップページにいる
+      visit root_path
+      # 投稿1に「編集」ボタンがないことを確認する
+      visit post_path(@post1.id)
+      expect(page).to have_no_link '削除', href: post_path(@post1)
+      # 投稿2に「編集」ボタンがないことを確認する
+      visit post_path(@post2.id)
+      expect(page).to have_no_link '削除', href: post_path(@post2)
+    end
+  end
+end
