@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true, length: { maximum: 8 }
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   validates :password, format: {
     with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'Include both letters and numbers'
   }
@@ -17,12 +17,9 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
 
   def already_favorited?(post)
-    self.favorites.exists?(post_id: post.id)
+    favorites.exists?(post_id: post.id)
   end
-  
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :grade
 end
-
-
-
