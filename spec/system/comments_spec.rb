@@ -5,7 +5,7 @@ RSpec.describe 'コメント投稿', type: :system do
     @post = FactoryBot.create(:post)
     @comment = Faker::Lorem.sentence
   end
-  it 'ログインしたユーザーはツイート詳細ページでコメント投稿できる' do
+  it 'ログインしたユーザーは投稿詳細ページでコメント投稿できる' do
     # ログインする
     visit new_user_session_path
     fill_in 'メールアドレス', with: @post.user.email
