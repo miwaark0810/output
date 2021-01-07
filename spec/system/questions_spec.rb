@@ -182,3 +182,35 @@ RSpec.describe '質問削除', type: :system do
     end
   end
 end
+
+RSpec.describe '質問詳細', type: :system do
+  before do
+    @question = FactoryBot.create(:question)
+  end
+  it 'ログインしたユーザーは質問詳細ページに遷移してコメント投稿欄が表示される' do
+    # ログインする
+    visit new_user_session_path
+    fill_in 'メールアドレス', with: @question.user.email
+    fill_in 'パスワード', with: @question.user.password
+    find('input[name="commit"]').click
+    expect(current_path).to eq root_path
+    # 質問一覧ページに移動する
+    visit questions_path
+    # 詳細ページに遷移する
+    visit question_path(@question)
+    # 詳細ページに質問の内容が含まれている
+    expect(page).to have_content("#{@question.title}")
+    expect(page).to have_content("#{@question.text}")
+    # コメント用のフォームが存在する
+    expect(page).to have_selector 'form'
+  end
+  it 'ログインしていない状態で質問詳細ページに遷移できるもののコメント投稿欄が表示されない' do
+    # 詳細ページに遷移する
+    visit question_path(@question)
+    # 詳細ページに質問の内容が含まれている
+    expect(page).to have_content("#{@question.title}")
+    expect(page).to have_content("#{@question.text}")
+    # フォームが存在しないことを確認する
+    expect(page).to have_no_selector 'form'
+  end
+end

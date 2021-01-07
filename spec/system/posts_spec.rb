@@ -175,11 +175,6 @@ RSpec.describe '投稿削除', type: :system do
   end
 end
 
-require 'rails_helper'
-
-# 投稿投稿、編集、削除の結合テストコードは省略しています
-# 投稿削除の結合テストコードに続いて記述しましょう
-
 RSpec.describe '投稿詳細', type: :system do
   before do
     @post = FactoryBot.create(:post)
