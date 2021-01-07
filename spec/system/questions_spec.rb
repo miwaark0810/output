@@ -124,3 +124,61 @@ RSpec.describe '質問編集', type: :system do
     end
   end
 end
+
+RSpec.describe '質問削除', type: :system do
+  before do
+    @question1 = FactoryBot.create(:question)
+    @question2 = FactoryBot.create(:question)
+  end
+  context '質問削除ができるとき' do
+    it 'ログインしたユーザーは自らの質問を削除ができる' do
+      # 質問1を質問したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @question1.user.email
+      fill_in 'パスワード（6文字以上）', with: @question1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 質問一覧ページに移動する
+      visit questions_path
+      # 質問1の詳細ページに移動する
+      visit question_path(@question1.id)
+      # 質問1に「削除」ボタンがあることを確認する
+      expect(page).to have_link '削除', href: question_path(@question1)
+      # 質問を削除するとレコードの数が1減ることを確認する
+      expect{
+        find_link('削除', href: question_path(@question1)).click
+      }.to change { Question.count }.by(-1)
+      # 質問一覧ページに移動する
+      visit questions_path
+      # 質問一覧ページには質問1の内容が存在しないことを確認する
+      expect(page).to have_no_content("#{@question1.title}")
+      expect(page).to have_no_content("#{@question1.text}")
+    end
+  end
+  context '質問削除ができないとき' do
+    it 'ログインしたユーザーは自分以外が質問した質問の削除ができない' do
+      # 質問1を質問したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @question1.user.email
+      fill_in 'パスワード（6文字以上）', with: @question1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 質問2の詳細ページに移動する
+      visit question_path(@question2.id)
+      # 質問2に「削除」ボタンがないことを確認する
+      expect(page).to have_no_link '削除', href: question_path(@question2)
+    end
+    it 'ログインしていないと質問の削除ボタンがない' do
+      # トップページにいる
+      visit root_path
+      # 質問一覧ページに移動する
+      visit questions_path
+      # 質問1に「編集」ボタンがないことを確認する
+      visit question_path(@question1.id)
+      expect(page).to have_no_link '削除', href: question_path(@question1)
+      # 質問2に「編集」ボタンがないことを確認する
+      visit question_path(@question2.id)
+      expect(page).to have_no_link '削除', href: question_path(@question2)
+    end
+  end
+end
