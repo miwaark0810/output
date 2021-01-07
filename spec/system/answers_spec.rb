@@ -7,11 +7,7 @@ RSpec.describe '回答', type: :system do
   end
   it 'ログインしたユーザーは質問詳細ページで回答投稿できる' do
     # ログインする
-    visit new_user_session_path
-    fill_in 'メールアドレス', with: @question.user.email
-    fill_in 'パスワード', with: @question.user.password
-    find('input[name="commit"]').click
-    expect(current_path).to eq root_path
+    sign_in(@question.user)
     # 質問一覧ページに移動する
     visit questions_path
     # 質問詳細ページに遷移する

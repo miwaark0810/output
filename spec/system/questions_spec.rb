@@ -10,11 +10,7 @@ RSpec.describe "Questions", type: :system do
   context '新規質問ができるとき'do
     it 'ログインしたユーザーは新規質問できる' do
       # ログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @user.email
-      fill_in 'パスワード（6文字以上）', with: @user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@user)
       # 質問一覧ページへのリンクがあることを確認する
       expect(page).to have_content('質問一覧へ')
       # 質問一覧ページに移動する
@@ -55,11 +51,7 @@ RSpec.describe '質問編集', type: :system do
   context '質問編集ができるとき' do
     it 'ログインしたユーザーは自分が質問した質問の編集ができる' do
       # 質問1を質問したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @question1.user.email
-      fill_in 'パスワード（6文字以上）', with: @question1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@question1.user)
       # 質問一覧ページに移動する
       visit questions_path
       # 質問1の詳細ページに移動する
@@ -98,11 +90,7 @@ RSpec.describe '質問編集', type: :system do
   context '質問編集ができないとき' do
     it 'ログインしたユーザーは自分以外が質問した質問の編集画面には遷移できない' do
       # 質問1を質問したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @question1.user.email
-      fill_in 'パスワード（6文字以上）', with: @question1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@question1.user)
       # 質問一覧ページに移動する
       visit questions_path
       # 質問2の詳細ページに移動する
@@ -133,11 +121,7 @@ RSpec.describe '質問削除', type: :system do
   context '質問削除ができるとき' do
     it 'ログインしたユーザーは自らの質問を削除ができる' do
       # 質問1を質問したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @question1.user.email
-      fill_in 'パスワード（6文字以上）', with: @question1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@question1.user)
       # 質問一覧ページに移動する
       visit questions_path
       # 質問1の詳細ページに移動する
@@ -158,11 +142,7 @@ RSpec.describe '質問削除', type: :system do
   context '質問削除ができないとき' do
     it 'ログインしたユーザーは自分以外が質問した質問の削除ができない' do
       # 質問1を質問したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @question1.user.email
-      fill_in 'パスワード（6文字以上）', with: @question1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@question1.user)
       # 質問2の詳細ページに移動する
       visit question_path(@question2.id)
       # 質問2に「削除」ボタンがないことを確認する
@@ -189,11 +169,7 @@ RSpec.describe '質問詳細', type: :system do
   end
   it 'ログインしたユーザーは質問詳細ページに遷移してコメント投稿欄が表示される' do
     # ログインする
-    visit new_user_session_path
-    fill_in 'メールアドレス', with: @question.user.email
-    fill_in 'パスワード', with: @question.user.password
-    find('input[name="commit"]').click
-    expect(current_path).to eq root_path
+    sign_in(@question.user)
     # 質問一覧ページに移動する
     visit questions_path
     # 詳細ページに遷移する

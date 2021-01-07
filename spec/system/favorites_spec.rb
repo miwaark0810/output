@@ -8,11 +8,7 @@ RSpec.describe "いいね機能", type: :system do
   context 'いいねができるとき'do
     it 'ログインしたユーザーは投稿にいいねをすることができる' do
       # ログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @user.email
-      fill_in 'パスワード（6文字以上）', with: @user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@user)
       # トップページにはいいねするための表示が存在することを確認する
       expect(page).to have_selector(".far")
       # いいねをクリックすると、Favoriteモデルのカウントが1上がることを確認する

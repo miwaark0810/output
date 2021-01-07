@@ -10,11 +10,7 @@ RSpec.describe '新規投稿', type: :system do
   context '新規投稿ができるとき'do
     it 'ログインしたユーザーは新規投稿できる' do
       # ログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @user.email
-      fill_in 'パスワード（6文字以上）', with: @user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@user)
       # 新規投稿ページへのリンクがあることを確認する
       expect(page).to have_content('アウトプット')
       # 投稿ページに移動する
@@ -57,11 +53,7 @@ RSpec.describe '投稿編集', type: :system do
   context '投稿編集ができるとき' do
     it 'ログインしたユーザーは自分が投稿した投稿の編集ができる' do
       # 投稿1を投稿したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @post1.user.email
-      fill_in 'パスワード（6文字以上）', with: @post1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@post1.user)
       # 投稿1の詳細ページに移動する
       visit post_path(@post1.id)
       # 投稿1に「編集」ボタンがあることを確認する
@@ -98,11 +90,7 @@ RSpec.describe '投稿編集', type: :system do
   context '投稿編集ができないとき' do
     it 'ログインしたユーザーは自分以外が投稿した投稿の編集画面には遷移できない' do
       # 投稿1を投稿したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @post1.user.email
-      fill_in 'パスワード（6文字以上）', with: @post1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@post1.user)
       # 投稿2の詳細ページに移動する
       visit post_path(@post2.id)
       # 投稿2に「編集」ボタンがないことを確認する
@@ -129,11 +117,7 @@ RSpec.describe '投稿削除', type: :system do
   context '投稿削除ができるとき' do
     it 'ログインしたユーザーは自らの投稿を削除ができる' do
       # 投稿1を投稿したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @post1.user.email
-      fill_in 'パスワード（6文字以上）', with: @post1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@post1.user)
       # 投稿1の詳細ページに移動する
       visit post_path(@post1.id)
       # 投稿1に「削除」ボタンがあることを確認する
@@ -152,11 +136,7 @@ RSpec.describe '投稿削除', type: :system do
   context '投稿削除ができないとき' do
     it 'ログインしたユーザーは自分以外が投稿した投稿の削除ができない' do
       # 投稿1を投稿したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'メールアドレス', with: @post1.user.email
-      fill_in 'パスワード（6文字以上）', with: @post1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@post1.user)
       # 投稿2の詳細ページに移動する
       visit post_path(@post2.id)
       # 投稿2に「削除」ボタンがないことを確認する
@@ -181,11 +161,7 @@ RSpec.describe '投稿詳細', type: :system do
   end
   it 'ログインしたユーザーは投稿詳細ページに遷移してコメント投稿欄が表示される' do
     # ログインする
-    visit new_user_session_path
-    fill_in 'メールアドレス', with: @post.user.email
-    fill_in 'パスワード', with: @post.user.password
-    find('input[name="commit"]').click
-    expect(current_path).to eq root_path
+    sign_in(@post.user)
     # 詳細ページに遷移する
     visit post_path(@post)
     # 詳細ページに投稿の内容が含まれている

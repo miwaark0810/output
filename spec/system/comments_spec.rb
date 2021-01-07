@@ -7,11 +7,7 @@ RSpec.describe 'コメント投稿', type: :system do
   end
   it 'ログインしたユーザーは投稿詳細ページでコメント投稿できる' do
     # ログインする
-    visit new_user_session_path
-    fill_in 'メールアドレス', with: @post.user.email
-    fill_in 'パスワード', with: @post.user.password
-    find('input[name="commit"]').click
-    expect(current_path).to eq root_path
+    sign_in(@post.user)
     # 投稿詳細ページに遷移する
     visit post_path(@post)
     # フォームに情報を入力する
