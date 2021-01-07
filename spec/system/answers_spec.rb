@@ -15,9 +15,9 @@ RSpec.describe '回答', type: :system do
     # フォームに情報を入力する
     fill_in 'answer_text', with: @answer
     # 回答を送信すると、answerモデルのカウントが1上がることを確認する
-    expect{
+    expect  do
       find('input[name="commit"]').click
-    }.to change { Answer.count }.by(1)
+    end.to change { Answer.count }.by(1)
     # 詳細ページにリダイレクトされることを確認する
     expect(current_path).to eq question_path(@question)
     # 詳細ページ上に先ほどの回答内容が含まれていることを確認する

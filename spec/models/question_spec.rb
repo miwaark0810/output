@@ -15,7 +15,7 @@ RSpec.describe Question, type: :model do
       @question.valid?
       expect(@question.errors.full_messages).to include("Subject can't be blank")
     end
-    
+
     it 'titleが空では登録できないこと' do
       @question.title = nil
       @question.valid?

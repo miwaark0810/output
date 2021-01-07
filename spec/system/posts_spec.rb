@@ -7,7 +7,7 @@ RSpec.describe '新規投稿', type: :system do
     @post_title = Faker::Lorem.word
     @post_text = Faker::Lorem.sentence
   end
-  context '新規投稿ができるとき'do
+  context '新規投稿ができるとき' do
     it 'ログインしたユーザーは新規投稿できる' do
       # ログインする
       sign_in(@user)
@@ -22,19 +22,19 @@ RSpec.describe '新規投稿', type: :system do
       fill_in 'タイトル', with: @post_title
       fill_in 'テキスト', with: @post_text
       # 送信するとpostモデルのカウントが1上がることを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Post.count }.by(1)
+      end.to change { Post.count }.by(1)
       # トップページに遷移する
       visit root_path
       # トップページには先ほど投稿した内容の投稿が存在することを確認する（画像）
-      expect(page).to have_selector("img")
+      expect(page).to have_selector('img')
       # トップページには先ほど投稿した内容の投稿が存在することを確認する（テキスト）
       expect(page).to have_content(@post_title)
       expect(page).to have_content(@post_text)
     end
   end
-  context '新規投稿ができないとき'do
+  context '新規投稿ができないとき' do
     it 'ログインしていないと新規投稿ページに遷移できない' do
       # トップページに遷移する
       visit root_path
@@ -75,9 +75,9 @@ RSpec.describe '投稿編集', type: :system do
       fill_in 'タイトル', with: "#{@post1.title}+編集したタイトル"
       fill_in 'テキスト', with: "#{@post1.text}+編集したテキスト"
       # 編集してもpostモデルのカウントは変わらないことを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Post.count }.by(0)
+      end.to change { Post.count }.by(0)
       # 詳細画面に遷移したことを確認する
       expect(current_path).to eq post_path(@post1.id)
       # トップページに遷移する
@@ -123,14 +123,14 @@ RSpec.describe '投稿削除', type: :system do
       # 投稿1に「削除」ボタンがあることを確認する
       expect(page).to have_link '削除', href: post_path(@post1)
       # 投稿を削除するとレコードの数が1減ることを確認する
-      expect{
+      expect do
         find_link('削除', href: post_path(@post1)).click
-      }.to change { Post.count }.by(-1)
+      end.to change { Post.count }.by(-1)
       # トップページに遷移することを確認する
       expect(current_path).to eq root_path
       # トップページには投稿1の内容が存在しないことを確認する
-      expect(page).to have_no_content("#{@post1.title}")
-      expect(page).to have_no_content("#{@post1.text}")
+      expect(page).to have_no_content(@post1.title.to_s)
+      expect(page).to have_no_content(@post1.text.to_s)
     end
   end
   context '投稿削除ができないとき' do
@@ -165,8 +165,8 @@ RSpec.describe '投稿詳細', type: :system do
     # 詳細ページに遷移する
     visit post_path(@post)
     # 詳細ページに投稿の内容が含まれている
-    expect(page).to have_content("#{@post.title}")
-    expect(page).to have_content("#{@post.text}")
+    expect(page).to have_content(@post.title.to_s)
+    expect(page).to have_content(@post.text.to_s)
     # コメント用のフォームが存在する
     expect(page).to have_selector 'form'
   end
@@ -174,8 +174,8 @@ RSpec.describe '投稿詳細', type: :system do
     # 詳細ページに遷移する
     visit post_path(@post)
     # 詳細ページに投稿の内容が含まれている
-    expect(page).to have_content("#{@post.title}")
-    expect(page).to have_content("#{@post.text}")
+    expect(page).to have_content(@post.title.to_s)
+    expect(page).to have_content(@post.text.to_s)
     # フォームが存在しないことを確認する
     expect(page).to have_no_selector 'form'
   end

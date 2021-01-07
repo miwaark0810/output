@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "Questions", type: :system do
+RSpec.describe 'Questions', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @question_subject = Faker::Lorem.word
     @question_title = Faker::Lorem.word
     @question_text = Faker::Lorem.sentence
   end
-  context '新規質問ができるとき'do
+  context '新規質問ができるとき' do
     it 'ログインしたユーザーは新規質問できる' do
       # ログインする
       sign_in(@user)
@@ -22,9 +22,9 @@ RSpec.describe "Questions", type: :system do
       fill_in 'タイトル', with: @question_title
       fill_in 'テキスト', with: @question_text
       # 送信するとquestionモデルのカウントが1上がることを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Question.count }.by(1)
+      end.to change { Question.count }.by(1)
       # 質問一覧ページに移動する
       visit questions_path
       # トップページには先ほど質問した内容の質問が存在することを確認する（テキスト）
@@ -32,7 +32,7 @@ RSpec.describe "Questions", type: :system do
       expect(page).to have_content(@question_text)
     end
   end
-  context '新規質問ができないとき'do
+  context '新規質問ができないとき' do
     it 'ログインしていないと新規質問ページに遷移できない' do
       # 質問一覧ページに移動する
       visit questions_path
@@ -75,9 +75,9 @@ RSpec.describe '質問編集', type: :system do
       fill_in 'タイトル', with: "#{@question1.title}+編集したタイトル"
       fill_in 'テキスト', with: "#{@question1.text}+編集したテキスト"
       # 編集してもquestionモデルのカウントは変わらないことを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Question.count }.by(0)
+      end.to change { Question.count }.by(0)
       # 詳細画面に遷移したことを確認する
       expect(current_path).to eq question_path(@question1.id)
       # 質問一覧ページに移動する
@@ -129,14 +129,14 @@ RSpec.describe '質問削除', type: :system do
       # 質問1に「削除」ボタンがあることを確認する
       expect(page).to have_link '削除', href: question_path(@question1)
       # 質問を削除するとレコードの数が1減ることを確認する
-      expect{
+      expect do
         find_link('削除', href: question_path(@question1)).click
-      }.to change { Question.count }.by(-1)
+      end.to change { Question.count }.by(-1)
       # 質問一覧ページに移動する
       visit questions_path
       # 質問一覧ページには質問1の内容が存在しないことを確認する
-      expect(page).to have_no_content("#{@question1.title}")
-      expect(page).to have_no_content("#{@question1.text}")
+      expect(page).to have_no_content(@question1.title.to_s)
+      expect(page).to have_no_content(@question1.text.to_s)
     end
   end
   context '質問削除ができないとき' do
@@ -175,8 +175,8 @@ RSpec.describe '質問詳細', type: :system do
     # 詳細ページに遷移する
     visit question_path(@question)
     # 詳細ページに質問の内容が含まれている
-    expect(page).to have_content("#{@question.title}")
-    expect(page).to have_content("#{@question.text}")
+    expect(page).to have_content(@question.title.to_s)
+    expect(page).to have_content(@question.text.to_s)
     # コメント用のフォームが存在する
     expect(page).to have_selector 'form'
   end
@@ -184,8 +184,8 @@ RSpec.describe '質問詳細', type: :system do
     # 詳細ページに遷移する
     visit question_path(@question)
     # 詳細ページに質問の内容が含まれている
-    expect(page).to have_content("#{@question.title}")
-    expect(page).to have_content("#{@question.text}")
+    expect(page).to have_content(@question.title.to_s)
+    expect(page).to have_content(@question.text.to_s)
     # フォームが存在しないことを確認する
     expect(page).to have_no_selector 'form'
   end

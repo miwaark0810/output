@@ -12,11 +12,11 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-     if @post.save
-       redirect_to root_path
-     else
-       render :new
-     end
+    if @post.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def show
@@ -25,17 +25,15 @@ class PostsController < ApplicationController
   end
 
   def edit
-    unless @post.user_id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless @post.user_id == current_user.id
   end
 
   def update
-     if @post.update(post_params)
+    if @post.update(post_params)
       redirect_to post_path
-     else
+    else
       render :edit
-     end
+    end
   end
 
   def destroy
@@ -48,7 +46,7 @@ class PostsController < ApplicationController
   end
 
   private
-  
+
   def post_params
     params.require(:post).permit(:subject, :title, :text, :image).merge(user_id: current_user.id)
   end

@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
     else
       @question = @answer.question
       @answers = @prototype.answers
-      render "question/show"
+      render 'question/show'
     end
   end
 

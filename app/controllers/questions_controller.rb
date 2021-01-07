@@ -12,30 +12,28 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-     if @question.save
-       redirect_to questions_path
-     else
-       render :new
-     end
+    if @question.save
+      redirect_to questions_path
+    else
+      render :new
+    end
   end
 
-  def show 
+  def show
     @answer = Answer.new
     @answers = @question.answers.includes(:user)
   end
 
   def edit
-    unless @question.user_id == current_user.id
-      redirect_to question_path
-    end
+    redirect_to question_path unless @question.user_id == current_user.id
   end
 
   def update
-     if @question.update(question_params)
+    if @question.update(question_params)
       redirect_to question_path
-     else
+    else
       render :edit
-     end
+    end
   end
 
   def destroy
@@ -44,7 +42,7 @@ class QuestionsController < ApplicationController
   end
 
   private
-  
+
   def question_params
     params.require(:question).permit(:subject, :title, :text).merge(user_id: current_user.id)
   end
