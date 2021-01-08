@@ -1,5 +1,10 @@
 <main class="main">
   <div class="inner">
+    <% if user_signed_in? %>
+      <div class="greeting">
+        <%= link_to "ようこそ、#{current_user.nickname}さん", user_path(current_user.id), class: :greeting__link, method: :get%>
+      </div>
+    <% end %>
     <div class="card__wrapper">
       <%= render partial: 'question', collection: @questions %>
     </div>
