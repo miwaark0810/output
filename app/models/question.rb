@@ -7,4 +7,7 @@ class Question < ApplicationRecord
     validates :title
     validates :text
   end
+
+  validates :title, length: { maximum: 16 }
+  validates :text, length: { maximum: 200 }
 end
