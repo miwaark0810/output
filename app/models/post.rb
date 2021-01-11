@@ -6,6 +6,9 @@ class Post < ApplicationRecord
     validates :text
   end
 
+  validates :title, length: { maximum: 16 }
+  validates :text, length: { maximum: 60 }
+
   belongs_to :user
   has_one_attached :image
   has_many :comments, dependent: :destroy
