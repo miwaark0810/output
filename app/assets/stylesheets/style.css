@@ -175,6 +175,9 @@ a {
 }
 .card__img {
   margin-bottom: 16px;
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
 }
 .card__title {
   display: block;
