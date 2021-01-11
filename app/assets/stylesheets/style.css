@@ -184,6 +184,7 @@ a {
   font-size: 20px;
   margin-bottom: 8px;
   font-weight: bold;
+  word-break: break-all;
 }
 .card__summary {
   font-size: 16px;
@@ -259,6 +260,7 @@ a {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  word-break: break-all;
 }
 .prototype__user{
   display: block;

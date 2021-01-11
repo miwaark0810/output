@@ -20,7 +20,7 @@
         <div class="prototype__detail">
           <p class="detail__title">内容</p>
           <p class="detail__message">
-            <%= @post.text %>
+            <%= simple_format(@post.text) %>
           </p>
       </div>
       <div class="prototype__heart">
