@@ -1,11 +1,11 @@
 
-# Name（リポジトリ/プロジェクト/OSSなどの名前）
+# Output
 
 「Output」は学生向けアウトプット学習用の投稿アプリケーションです。
 
 # DEMO
-
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
+・自分が学習した内容を画像つきで投稿することができます。
+![Outputトップページ](https://user-images.githubusercontent.com/73152294/104276485-47485280-54e8-11eb-9ae5-afacad18fb21.jpg)
 
 # Features
 
