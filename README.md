@@ -183,3 +183,10 @@ Pass:2222
 
 - belongs_to :user
 - belongs_to :question
+
+# 今後の実装予定
+- 検索機能の充実  
+&nbsp;教科別の検索  
+&nbsp;いいねが多い投稿の検索&nbsp;など  
+- 回答欄の整備  
+&nbsp;フォームのサイズ調整&nbsp;など 
