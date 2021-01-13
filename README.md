@@ -98,4 +98,88 @@ Pass:2222
 ・ Capistrano3  
 ・ RSpec
 
- 
+# テーブル設計
+
+## users テーブル
+
+| Column   | Type    | Options     |
+| -------- | ------  | ----------- |
+| email    | string  | null: false |
+| password | string  | null: false |
+| nickname | string  | null: false |
+| grade_id | integer | null: false |
+
+### Association
+
+- has_many :posts
+- has_many :comments
+- has_many :favorites
+- has_many :questions
+- has_many :answers
+
+## posts テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| subject | string     | null: false                    |
+| title   | string     | null: false                    |
+| text    | text       | null: false                    |
+| user    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- has_many :comments
+- has_many :favorites
+
+## comments テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| text   | text       | null: false                    |
+| user   | references | null: false, foreign_key: true |
+| post   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :post
+
+## favorites テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| post   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :post
+
+## questions テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| subject | string     | null: false                    |
+| title   | string     | null: false                    |
+| text    | text       | null: false                    |
+| user    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- has_many :answers
+
+## answers テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| text   | text       | null: false                    |
+| user   | references | null: false, foreign_key: true |
+| post   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :question
