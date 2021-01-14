@@ -322,6 +322,7 @@ a {
 
 .comments_lists{
   padding-left: 20px;
+  word-wrap: break-word;
 }
 
 .comments_list{
