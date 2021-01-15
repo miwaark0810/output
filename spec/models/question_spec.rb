@@ -26,7 +26,7 @@ RSpec.describe Question, type: :model do
       @question.title = 'abcdefghijklmnop'
       expect(@question).to be_valid
     end
-    
+
     it 'titleが17文字以上であれば登録できないこと' do
       @question.title = 'abcdefghijklmnopq'
       @question.valid?
@@ -43,7 +43,7 @@ RSpec.describe Question, type: :model do
       @question.text = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqr'
       expect(@question).to be_valid
     end
-    
+
     it 'textが201文字以上であれば登録できないこと' do
       @question.text = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrs'
       @question.valid?
