@@ -27,12 +27,12 @@ RSpec.describe Post, type: :model do
       @post.valid?
       expect(@post.errors.full_messages).to include("Title can't be blank")
     end
-    
+
     it 'titleが16文字以下であれば登録できること' do
       @post.title = 'abcdefghijklmnop'
       expect(@post).to be_valid
     end
-    
+
     it 'titleが17文字以上であれば登録できないこと' do
       @post.title = 'abcdefghijklmnopq'
       @post.valid?
@@ -49,7 +49,7 @@ RSpec.describe Post, type: :model do
       @post.text = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh'
       expect(@post).to be_valid
     end
-    
+
     it 'textが61文字以上であれば登録できないこと' do
       @post.text = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghi'
       @post.valid?
