@@ -22,6 +22,12 @@
       <div class="user__card">
         <%= render partial: 'posts/post', collection: @posts %>
       </div>
+      <h2 class="page-heading">
+        <%= "#{@user.nickname}さんの質問"%>
+      </h2>
+      <div class="user__card">
+        <%= render partial: 'questions/question', collection: @questions %>
+      </div>
     </div>
   </div>
 </div>
