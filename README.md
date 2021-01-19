@@ -20,6 +20,17 @@ Pass:2222
 ・メールアドレス：user_two@sample  
 ・パスワード：user0826  
 
+# 使用技術
+・ Ruby 2.6.5  
+・ Ruby on Rails 6.0.3.4  
+・ Nginx  
+・ Unicorn  
+・ AWS  
+&emsp;-&nbsp;EC2  
+&emsp;-&nbsp;S3  
+・ Capistrano3  
+・ RSpec
+
 # 概要
 
 ## ・自分が学習した内容を画像つきで投稿することができます。
@@ -86,17 +97,6 @@ Pass:2222
 
 ## ユーザーページへの移動
 ①投稿や質問の下にある「by 〇〇」をクリック
-
-# 使用技術
-・ Ruby 2.6.5  
-・ Ruby on Rails 6.0.3.4  
-・ Nginx  
-・ Unicorn  
-・ AWS  
-&emsp;-&nbsp;EC2  
-&emsp;-&nbsp;S3  
-・ Capistrano3  
-・ RSpec
 
 # テーブル設計
 
