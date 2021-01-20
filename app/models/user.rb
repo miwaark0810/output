@@ -21,6 +21,10 @@ class User < ApplicationRecord
     favorites.exists?(post_id: post.id)
   end
 
+  def already_solved?(question)
+    solutions.exists?(question_id: question.id)
+  end
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :grade
 end
