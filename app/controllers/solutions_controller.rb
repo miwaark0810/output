@@ -1,4 +1,6 @@
 class SolutionsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @solution = current_user.solutions.create(question_id: params[:question_id])
     redirect_back(fallback_location: root_path)
