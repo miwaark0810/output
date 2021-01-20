@@ -5,7 +5,7 @@ class SolutionsController < ApplicationController
   end
 
   def destroy
-    @question = question.find(params[:question_id])
+    @question = Question.find(params[:question_id])
     @solution = current_user.solutions.find_by(question_id: @question.id)
     @solution.destroy
     redirect_back(fallback_location: root_path)

@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card__body">
-    <%= link_to question.title, question_path(question.id), class: :card__title, method: :get%>
+    <% if question.solution.present? %>
+      <%= link_to "#{question.title}（解決済み）", question_path(question.id), class: :card__title, method: :get%>
+    <% else %>
+      <%= link_to "#{question.title}（回答募集中）", question_path(question.id), class: :card__title, method: :get%>    
+    <% end %>
     <p class="card__summary">
       <%= simple_format(question.text) %>
     </p>
