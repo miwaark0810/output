@@ -15,9 +15,14 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :questions
   has_many :answers, dependent: :destroy
+  has_many :solutions, dependent: :destroy
 
   def already_favorited?(post)
     favorites.exists?(post_id: post.id)
+  end
+
+  def already_solved?(question)
+    solutions.exists?(question_id: question.id)
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions

@@ -2,7 +2,11 @@
   <div class="inner">
     <div class="prototype__wrapper">
       <p class="prototype__hedding">
-        <%= @question.title%>
+        <% if @question.solution.present? %>
+          <%= "#{@question.title}（解決済み）"%>
+        <% else %>
+          <%= "#{@question.title}（回答募集中）"%>
+        <% end %>
       </p>
       <br>
       <div class="prototype__body">
@@ -16,8 +20,13 @@
 
       <% if user_signed_in? && current_user.id == @question.user_id %>
         <div class="prototype__manage">
-          <%= link_to "編集する", edit_question_path(@question.id), class: :prototype__btn, method: :get%>
+          <%= link_to "編集する", edit_question_path(@question.id), class: :prototype__btn, method: :get %>
           <%= link_to "削除する", question_path(@question.id), class: :prototype__btn, method: :delete %>
+        <% if current_user.already_solved?(@question) %>
+          <%= link_to "回答募集中にする", question_solutions_path(@question), class: :prototype__btn, method: :delete %>
+        <% else %>
+          <%= link_to "解決済みにする", question_solutions_path(@question), class: :prototype__btn, method: :post %>  
+        <% end %>
         </div>
       <% end %>
       <div class="prototype__comments">

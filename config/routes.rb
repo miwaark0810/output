@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: :show
   resources :questions do
     resources :answers, only: :create
+    resource :solutions, only: [:create, :destroy]
   end
 end
 
