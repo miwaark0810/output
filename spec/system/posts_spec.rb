@@ -20,7 +20,7 @@ RSpec.describe '新規投稿', type: :system do
       attach_file('post[image]', image_path, make_visible: true)
       fill_in '教科', with: @post_subject
       fill_in 'タイトル', with: @post_title
-      fill_in 'テキスト', with: @post_text
+      fill_in 'limited', with: @post_text
       # 送信するとpostモデルのカウントが1上がることを確認する
       expect  do
         find('input[name="commit"]').click
@@ -68,12 +68,12 @@ RSpec.describe '投稿編集', type: :system do
         find('#post_title').value
       ).to eq @post1.title
       expect(
-        find('#post_text').value
+        find('#limited.form__text').value
       ).to eq @post1.text
       # 投稿内容を編集する
       fill_in '教科', with: "#{@post1.subject}+編集した教科"
       fill_in 'タイトル', with: "#{@post1.title}+編集したタイトル"
-      fill_in 'テキスト', with: "#{@post1.text}+編集したテキスト"
+      fill_in 'limited', with: "#{@post1.text}+編集したテキスト"
       # 編集してもpostモデルのカウントは変わらないことを確認する
       expect  do
         find('input[name="commit"]').click
