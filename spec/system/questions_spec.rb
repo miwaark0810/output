@@ -20,7 +20,7 @@ RSpec.describe 'Questions', type: :system do
       # フォームに情報を入力する
       fill_in '教科', with: @question_subject
       fill_in 'タイトル', with: @question_title
-      fill_in 'テキスト', with: @question_text
+      fill_in 'limited', with: @question_text
       # 送信するとquestionモデルのカウントが1上がることを確認する
       expect  do
         find('input[name="commit"]').click
@@ -68,12 +68,12 @@ RSpec.describe '質問編集', type: :system do
         find('#question_title').value
       ).to eq @question1.title
       expect(
-        find('#question_text').value
+        find('#limited.form__text').value
       ).to eq @question1.text
       # 質問内容を編集する
       fill_in '教科', with: "#{@question1.subject}+編集した教科"
       fill_in 'タイトル', with: "#{@question1.title}+編集したタイトル"
-      fill_in 'テキスト', with: "#{@question1.text}+編集したテキスト"
+      fill_in 'limited', with: "#{@question1.text}+編集したテキスト"
       # 編集してもquestionモデルのカウントは変わらないことを確認する
       expect  do
         find('input[name="commit"]').click
