@@ -23,19 +23,8 @@
             <%= simple_format(@post.text) %>
           </p>
       </div>
-      <div class="prototype__heart">
-        <% if user_signed_in? %>
-          <% if current_user.already_favorited?(@post) %>
-            <%= link_to post_favorites_path(@post), method: :delete do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
-          <% else %>
-            <%= link_to post_favorites_path(@post), method: :post do %>  
-              <i class="far fa-heart"></i>
-            <% end %>
-          <% end %>
-          <%= @post.favorites.count%>
-        <% end %>
+      <div id="favorites_buttons_<%= @post.id %>" class="prototype__heart">
+        <%= render partial: 'favorites/favorite', locals: { post: @post }%>
       </div>
       <div class="prototype__comments">
           <% if user_signed_in? %>
