@@ -6,18 +6,9 @@
       <%= simple_format(post.text) %>
     </p>
     <%= link_to "by #{post.user.nickname}", user_path(post.user.id), class: :card__user, method: :get %>
-    <% if user_signed_in? %>
-      <% if current_user.already_favorited?(post) %>
-        <%= link_to post_favorites_path(post), method: :delete do %>
-          <i class="fas fa-heart"></i>
-        <% end %>
-      <% else %>
-        <%= link_to post_favorites_path(post), method: :post do %>  
-          <i class="far fa-heart"></i>
-        <% end %>
-      <% end %>
-      <%= post.favorites.count%>
-    <% end %>
+    <div id="favorites_buttons_<%= post.id %>">
+      <%= render partial: 'favorites/favorite', locals: { post: post }%>
+    </div>
   </div>
 </div>
 
