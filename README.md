@@ -122,6 +122,7 @@ Pass:2222
 - has_many :favorites
 - has_many :questions
 - has_many :answers
+- has_many :solutions
 
 ## posts テーブル
 
@@ -176,14 +177,27 @@ Pass:2222
 
 - belongs_to :user
 - has_many :answers
+- has_one :solution
 
 ## answers テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| text   | text       | null: false                    |
-| user   | references | null: false, foreign_key: true |
-| post   | references | null: false, foreign_key: true |
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| text     | text       | null: false                    |
+| user     | references | null: false, foreign_key: true |
+| question | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :question
+
+## solutions テーブル
+
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| user     | references | null: false, foreign_key: true |
+| question | references | null: false, foreign_key: true |
 
 ### Association
 
