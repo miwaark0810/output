@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
     subject { Faker::Lorem.word }
-    title { Faker::Lorem.word }
+    title { Faker::Lorem.characters(number: 7) }
     text { Faker::Lorem.sentence }
     association :user
 
