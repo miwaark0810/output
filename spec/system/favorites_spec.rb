@@ -14,15 +14,15 @@ RSpec.describe 'いいね機能', type: :system do
       # いいねをクリックすると、Favoriteモデルのカウントが1上がることを確認する
       expect do
         find('i').click
-      end.to change { Favorite.count }.by(1)
-      # トップページにリダイレクトされることを確認する
-      expect(current_path).to eq root_path
+        wait_for_ajax do
+        end.to change { Favorite.count }.by(1)
+      end
       # いいねをクリックすると、Favoriteモデルのカウントが1下がることを確認する
       expect do
         find('i').click
-      end.to change { Favorite.count }.by(-1)
-      # トップページにリダイレクトされることを確認する
-      expect(current_path).to eq root_path
+        wait_for_ajax do
+        end.to change { Favorite.count }.by(-1)
+      end
     end
   end
   context 'いいねができないとき' do
