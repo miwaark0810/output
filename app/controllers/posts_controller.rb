@@ -3,9 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true)
-
+    @posts = Post.includes(:user)
   end
 
   def new
