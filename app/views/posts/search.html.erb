@@ -1,10 +1,13 @@
 <main class="main">
   <div class="inner">
-    <%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
-      <%= form.text_field :keyword, placeholder: "タイトル、内容、教科名で検索", class: "search-input" %>
+    <%= search_form_for @q, url: search_posts_path, class: "search-form" do |form| %>
+      <%= form.search_field :subject_or_title_or_text_cont, placeholder: "タイトル、内容、教科名で検索", class: "search-input" %>
       <%= form.submit "検索", class: "search-btn" %>
     <% end %>
     <br>
+    <div class="search-order">
+      <%= sort_link(@q, :created_at, "投稿日で並び替え") %>
+    </div>
     <div class="card__wrapper">
       <%= render partial: 'post', collection: @posts %>
     </div>
