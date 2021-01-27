@@ -5,9 +5,9 @@
         <%= link_to "ようこそ、#{current_user.nickname}さん", user_path(current_user.id), class: :greeting__link, method: :get%>
       </div>
     <% end %>
-    <%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
-      <%= form.text_field :keyword, placeholder: "タイトル、内容、教科名で検索", class: "search-input" %>
-      <%= form.submit "検索", class: "search-btn" %>
+      <%= search_form_for @q, class: 'search-form' do |f| %>  
+      <%= f.search_field :subject_or_title_or_text_cont, placeholder: "タイトル、内容、教科名で検索", class: 'search-input' %>
+      <%= f.submit "検索", class: "search-btn" %>
     <% end %>
     <br>
     <div class="card__wrapper">
