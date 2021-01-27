@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_q, only: [:index, :search]
 
   def index
-    @posts = Post.includes(:user)
+    @posts = @q.result(distinct: true)
   end
 
   def new
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = @q.result
+    @posts = @q.result(distinct: true)
   end
 
   private

@@ -5,6 +5,9 @@
       <%= form.submit "検索", class: "search-btn" %>
     <% end %>
     <br>
+    <div class="search-order">
+      <%= sort_link(@q, :created_at, "投稿日で並び替え") %>
+    </div>
     <div class="card__wrapper">
       <%= render partial: 'post', collection: @posts %>
     </div>

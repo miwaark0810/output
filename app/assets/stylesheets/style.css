@@ -252,6 +252,12 @@ a {
   background: #3D3D3D;
 }
 
+.search-order{
+  margin-bottom: 20px;
+  font-style: italic;
+  text-decoration: underline;
+}
+
 .fa-heart {
   color: #A2153B;
 }
