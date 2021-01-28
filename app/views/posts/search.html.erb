@@ -6,7 +6,7 @@
     <% end %>
     <br>
     <div class="search-order">
-      <%= sort_link(@q, :created_at, "投稿日で並び替え") %>
+      <%= sort_link(@q, :created_at, "投稿日で並べ替える") %>
     </div>
     <div class="card__wrapper">
       <%= render partial: 'post', collection: @posts %>
