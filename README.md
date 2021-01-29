@@ -202,10 +202,4 @@ Pass:2222
 ### Association
 
 - belongs_to :user
-- belongs_to :question
-
-# 今後の実装予定
-- 検索機能の充実  
-&nbsp;いいねが多い投稿の検索&nbsp;など  
-- 非同期化  
-&nbsp;解決済み表示機能&nbsp;など  
+- belongs_to :question 
