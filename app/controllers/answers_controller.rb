@@ -5,8 +5,8 @@ class AnswersController < ApplicationController
       redirect_to question_path(@answer.question_id)
     else
       @question = @answer.question
-      @answers = @prototype.answers
-      render 'question/show'
+      @answers = @question.answers
+      render 'questions/show'
     end
   end
 
