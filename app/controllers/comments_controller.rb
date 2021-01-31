@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
       redirect_to post_path(@comment.post_id)
     else
       @post = @comment.post
-      @comments = @prototype.comments
-      render 'post/show'
+      @comments = @post.comments
+      render 'posts/show'
     end
   end
 
