@@ -23,4 +23,12 @@ RSpec.describe '回答', type: :system do
     # 詳細ページ上に先ほどの回答内容が含まれていることを確認する
     expect(page).to have_content @answer
   end
+  it 'ログインしていないと質問詳細ページで回答することができない' do
+    # 質問一覧ページに移動する
+    visit questions_path
+    # 質問詳細ページに遷移する
+    visit question_path(@question)
+    # 回答するための表示が存在しないことを確認する
+    expect(page).to have_no_selector 'form'
+  end
 end

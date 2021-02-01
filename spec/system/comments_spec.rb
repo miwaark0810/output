@@ -21,4 +21,10 @@ RSpec.describe 'コメント投稿', type: :system do
     # 詳細ページ上に先ほどのコメント内容が含まれていることを確認する
     expect(page).to have_content @comment
   end
+  it 'ログインしていないと投稿詳細ページでコメント投稿することができない' do
+    # 投稿詳細ページに遷移する
+    visit post_path(@post)
+    # コメントするための表示が存在しないことを確認する
+    expect(page).to have_no_selector 'form'
+  end
 end
